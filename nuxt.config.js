@@ -35,14 +35,19 @@ module.exports = {
   ** Global CSS
   */
  css: [
+    'element-ui/lib/theme-chalk/index.css',
     '~/assets/css/bootstrap/css/bootstrap.css',
-    '~/assets/css/theme-1.css'
+    '~/assets/css/theme-1.css',
+    'quill/dist/quill.snow.css',
+    'quill/dist/quill.bubble.css',
+    'quill/dist/quill.core.css'
   ],
     /*
     ** Plugins to load before mounting the App
     */
   plugins: [
     '@/plugins/element-ui',
+    { src: '~plugins/quill-editor.js', ssr: false }
   ],
   /*
   ** Build configuration
