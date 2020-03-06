@@ -36,7 +36,7 @@
 
             <div style="text-align: right; margin-top: 10px;">
                 <el-button>미리보기</el-button>
-                <el-button type="success">글 올리기</el-button>
+                <el-button type="success" @click="uploadPost">글 올리기</el-button>
             </div>
           </section>
 				
@@ -55,6 +55,7 @@
 
 <script>
 import Header from '../../../components/admin/Header.vue'
+import {post} from '../../../api/index'
 
 export default {
   head: {
@@ -68,8 +69,14 @@ export default {
   data() {
     return {
       categorys: [{
-          value: '개발',
+          value: 2,
           label: '개발'
+      }, {
+          value: 3,
+          label: '백엔드'
+      }, {
+          value: 10,
+          label: 'daily'
       }],
       category : '',
       title : '',
@@ -112,6 +119,43 @@ export default {
       },
       onEditorChange({ editor, html, text }) {
         this.content = html
+      },
+      uploadPost() {
+        if(!this.validCheck()) {
+          return false
+        }
+        let form = {
+          content : this.content,
+          title : this.title,
+          category : {
+            categoryId : this.category
+          }
+        }
+        post.create(form)
+            .then((data) => {
+              this.$notify({
+                title: 'Success',
+                message: '게시글 올리기 성공!',
+                type: 'success'
+              });
+            })
+            .catch((error) => {
+
+            })
+        console.log(form)
+      },
+      validCheck() {
+        if(!this.title) {
+          this.$message.error("제목을 입력해주세요!")
+          return false
+        } else if(!this.category) {
+          this.$message.error("카테고리를 선택해주세요!")
+          return false
+        } else if(!this.content) {
+          this.$message.error("내용을 입력해주세요!")
+          return false
+        }
+        return true
       }
   }
   
