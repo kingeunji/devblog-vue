@@ -56,6 +56,7 @@
 <script>
 import Header from '../../../components/admin/Header.vue'
 import {post} from '../../../api/index'
+import {category} from '../../../api/index'
 
 export default {
   head: {
@@ -68,19 +69,11 @@ export default {
   },
   data() {
     return {
-      categorys: [{
-          value: 2,
-          label: '개발'
-      }, {
-          value: 3,
-          label: '백엔드'
-      }, {
-          value: 10,
-          label: 'daily'
-      }],
+      categorys: [],
       category : '',
       title : '',
       content: '',
+      categoryList : [],
       editorOption: {
           // some quill options
           modules: {
@@ -107,6 +100,9 @@ export default {
   mounted() {
     
   },
+  created() {
+    this.fetchCategory()
+  },
   methods: {
       onEditorBlur(editor) {
         console.log('editor blur!', editor)
@@ -119,6 +115,19 @@ export default {
       },
       onEditorChange({ editor, html, text }) {
         this.content = html
+      },
+      fetchCategory() {
+        category.fetch()
+                .then((data) => {
+                  this.categoryList = data.content
+                  for (const key in this.categoryList) {
+                    var obj = {}
+                    obj.value =  this.categoryList[key].categoryId
+                    obj.label = this.categoryList[key].name
+                    this.categorys.push(obj)
+                  }
+
+                })
       },
       uploadPost() {
         if(!this.validCheck()) {
@@ -137,12 +146,12 @@ export default {
                 title: 'Success',
                 message: '게시글 올리기 성공!',
                 type: 'success'
-              });
+              })
             })
             .catch((error) => {
-
+            
             })
-        console.log(form)
+        
       },
       validCheck() {
         if(!this.title) {
