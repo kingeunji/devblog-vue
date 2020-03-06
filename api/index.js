@@ -22,6 +22,7 @@ export const category = {
         return request('GET', 'categorys')
     },
     create(category) {
+        console.log(category)
         return request('POST', 'categorys', category)
     }
 }

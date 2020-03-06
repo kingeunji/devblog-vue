@@ -21,7 +21,7 @@
 					    <nuxt-link class="nav-link" to="/admin/post">블로그 글쓰기</nuxt-link>
 					</li>
 					<li class="nav-item active">
-					    <a class="nav-link" href="blog-post.html">카테고리 관리</a>
+					    <nuxt-link class="nav-link" to="/admin/category">카테고리 관리</nuxt-link>
 					</li>
 				</ul>
 				
