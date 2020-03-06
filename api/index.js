@@ -30,5 +30,11 @@ export const category = {
 export const post = {
     create(form) {
         return request('POST', 'posts', form)
+    },
+    fetch() {
+        return request('GET', 'posts')
+    },
+    detail(postId) {
+        return request('GET', 'post/' + postId)
     }
 }
