@@ -8,7 +8,13 @@
 		    <div class="container">
 			    <header class="blog-post-header">
 				    <h2 class="title mb-2"> {{detailInfo.title}}</h2>
-				    <div class="meta mb-3"><span class="date"> {{detailInfo.createdDate}} </span><span class="time"> {{detailInfo.viewCnt}} min read</span><span class="comment"><a href="#">0 comments</a></span></div>
+				    <div class="meta mb-3">
+						<span class="date"> 작성일 {{ detailInfo.createdDate }} </span>
+						<span class="time"> {{detailInfo.viewCnt}} min read</span>
+						<span class="comment"><a href="#">0 comments</a></span>
+
+
+					</div>
 			    </header>
 			    
 			    <div class="blog-post-body">
@@ -107,6 +113,10 @@ export default {
 					this.loading = false
 					console.log(this.detailInfo)
 				})
+		},
+		convertDate(date) {
+			var todayDate = new Date(date)
+			return todayDate.toISOString().slice(0,10)
 		}
 	}
 }
@@ -118,7 +128,7 @@ export default {
 
 .blog-post .blog-post-body p, .blog-post .blog-post-body li {
     font-size: 0.9rem !important;
-    line-height: 0 !important;
+    line-height: 1.0 !important;
 }
 
 * { font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif'; }
@@ -132,12 +142,19 @@ pre {
 }
 
 blockquote {
-	border-left: 4px solid #ccc !important;
+	border-left: 4px solid rgb(51, 42, 42) !important;
     margin-bottom: 5px !important;
     margin-top: 5px !important;
     padding-left: 16px !important;
 }
 
+.ql-size-large {
+    font-size: 1.5em;
+}
+
+.ql-size-huge {
+    font-size: 2.5em;
+}
 
 
 </style>
